@@ -39,7 +39,7 @@ ru:
       multi_page_html: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"
   layouts:
     application:
-      app_name: "Desired Films"
+      app_name: "Fluffy Movies"
     navigation_links:
       home: "Домой"
       movies: "Фильмы"

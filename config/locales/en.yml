@@ -22,7 +22,7 @@
 en:
   layouts:
     application:
-      app_name: "Desired Films"
+      app_name: "Fluffy Movies"
     navigation_links:
       home: "Home"
       movies: "Movies"
@@ -72,7 +72,7 @@ en:
   movie_user_score: "Score"
   latest_films_title: "Latest films"
   welcome_description: "Here you can manage films that you'd like to watch or already watched"
-  welcome_to_title: "Welcome to Desired films"
+  welcome_to_title: "Welcome to Fluffy Movies"
   movies:
     index:
       no_movies_found: "No movies found :("
