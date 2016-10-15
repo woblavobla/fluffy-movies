@@ -1,0 +1,28 @@
+<% content_for :title do %><%= t('layouts.navigation.movie_request_updates') %>
+<% end %>
+
+<h2 class="text-center"><%= t('.requests_index_title') %></h2>
+
+<div class="row text-center">
+  <table class="table">
+    <tr class="active">
+      <td><%= t('movie_name') %></td>
+      <td><%= t('kinopoisk_movie_url') %></td>
+      <td><%= t('user_email') %></td>
+      <td><%= t('request_date') %></td>
+      <td><%= t('.update_movie_info') %></td>
+      <td><%= t('.delete_movie') %></td>
+    </tr>
+    <% for request in @requests -%>
+        <tr>
+          <td><%= link_to request.movie.rus_name, movie_path(request.movie) %></td>
+          <td><%= link_to request.kinopoisk_link, request.kinopoisk_link, :target => "_blank" %></td>
+          <td><%= link_to request.user.email, user_path(request.user) %></td>
+          <td><%= request.request_time %></td>
+          <td><%= link_to 'Update', actualize_movie_update_request_path(request), :method => :patch, :class => 'label label-primary', data: {:confirm => t('are_u_sure_to_update')} %></td>
+          <td><%= link_to 'Delete', movie_update_request_path(request), :method => :delete, :class => 'label label-primary', data: {:confirm => t('.are_u_sure_delete')} %></td>
+        </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @requests, renderer: BootstrapPagination::Rails %>
+</div>

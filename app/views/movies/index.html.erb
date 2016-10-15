@@ -1,0 +1,72 @@
+<% content_for :title do %><%= t('movies_list_title') %>
+<% end %>
+<h2 class="text-center"><%= t('movies_title') %></h2>
+
+<% unless @movies.present? -%>
+    <div class="row text-center">
+      <h3><%= t('.no_movies_found') %></h3>
+    </div>
+<% end %>
+
+<div class="well bs-component">
+  <div class="row text-center">
+    <div class="col-lg-10 col-lg-offset-1">
+      <div id="search_form">
+        <%= form_tag movies_path, :method => 'get', :html => {:class => "form-horizontal"} do |f| %>
+            <fieldset>
+              <legend class="text-center"><%= t('.search_movie') %></legend>
+              <div class="form-group">
+                <label class="col-lg-6 col-lg-offset-3 control-label"><%= t('.movie_part_name') %></label>
+                <div class="col-lg-6 col-lg-offset-3">
+                  <%= text_field_tag :search, params[:search], :class => 'form-control text-center' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-lg-6 col-lg-offset-3">
+                  <%= button_tag(type: 'submit', :class => 'btn btn-primary') do %>
+                      <%= t('.search_btn') %> <span class="glyphicon glyphicon-search"></span>
+                  <% end %>
+                </div>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row text-center">
+  <table class="table table-hover">
+    <tr class="active">
+      <td><%= t('movie_name') %></td>
+      <td><%= t('movie_year') %></td>
+      <td><%= t('movie_country') %></td>
+      <td><%= t('average_movie_score_title') %></td>
+      <td><%= t('movie_state') %></td>
+    </tr>
+    <% for movie in @movies -%>
+        <tr>
+          <td><%= link_to (movie.name_ru.blank? ? movie.name : movie.name_ru), movie_path(movie),
+                          'data-toggle' => "tooltip", 'data-placement' => @movies.to_a.last == movie ? "top" : "bottom", 'title' => "", 'data-original-title' => movie.short_description %></td>
+          <td><%= movie.year %></td>
+          <td><%= movie.country %></td>
+          <td><%= movie.average_score %></td>
+          <td>
+            <% if movie.watched_by_user?(current_user) -%>
+                <a data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= t('already_watched') %>"><span class="glyphicon glyphicon-check"></span></a>
+            <% else %>
+                <% if movie.in_user_watch_list?(current_user) -%>
+                    <a data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= t('in_watch_list') %>"><span class="glyphicon glyphicon-adjust"></span></a>
+                <% end %>
+            <% end %>
+          </td>
+        </tr>
+    <% end -%>
+  </table>
+  <%= will_paginate @movies, renderer: BootstrapPagination::Rails %>
+</div>
+
+<script type="text/javascript">
+  $('a').tooltip();
+</script>

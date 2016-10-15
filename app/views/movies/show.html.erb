@@ -1,0 +1,143 @@
+<% content_for :title do %><%= "#{@movie.name_ru.blank? ? @movie.name : @movie.name_ru} (#{@movie.year})" %>
+<% end %>
+
+<h2 class="text-center"><%= "#{@movie.name_ru.blank? ? @movie.name : @movie.name_ru} (#{@movie.year})" %></h2>
+
+<div class="row text-center">
+  <% if signed_in? -%>
+      <% if @movie.watched_by_user?(current_user) -%>
+          <h4><a><span class="glyphicon glyphicon-check"></span> <%= t('already_watched') %></a></h4>
+      <% else %>
+          <h4>
+            <% if current_user.movie_in_watch_list?(@movie) -%>
+                <a><span class="glyphicon glyphicon-adjust"></span> <%= t('in_watch_list') %></a>
+            <% else %>
+                <%= form_for @movie_to_watch, :url => user_movie_to_watch_path(current_user), :action => :update, :html => {:class => 'form'} do |form| %>
+                    <%= form.submit t('add_to_watch_list'), :class => 'btn btn-primary' %>
+                <% end %>
+            <% end %>
+          </h4>
+      <% end %>
+  <% end %>
+</div>
+
+<% if @movie.pictures.count > 0 -%>
+    <div class="row">
+      <img src="<%= @movie.pictures.first.image.url(:thumb) %>" class="img-thumbnail img-responsive center-block" alt="image">
+    </div>
+
+    <div class="row">
+      <h3 class="text-center">
+        <a class="label label-primary" id="toggle_carousel"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> <%= t('show_images') %>
+        </a>
+      </h3>
+    </div>
+
+    <div id="image_carousel_row" class="row">
+      <div id="image_carousel" class="carousel slide center" style="width: 800px; max-width: 800px; height: auto; margin: 0 auto;">
+        <ol class="carousel-indicators">
+          <% for i in (1...@movie.pictures.count) -%>
+              <li data-target="#image_carousel" data-slide-to=<%= "\"#{i}\"" %> class="active"></li>
+          <% end %>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <% for i in (1...@movie.pictures.count) -%>
+              <% if i == 1 -%>
+                  <div class="item active">
+                    <img class="img-responsive center-block" src="<%= @movie.pictures[i].image.url %>" alt="image">
+                  </div>
+              <% else %>
+                  <div class="item">
+                    <img class="img-responsive center-block" src="<%= @movie.pictures[i].image.url %>" alt="image">
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
+
+        <a class="left carousel-control" href="#image_carousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#image_carousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+<% end %>
+
+<div class="row text-center">
+  <h3><%= t('movie_description_title') %></h3>
+  <%= @movie.description %>
+</div>
+
+<div class="row text-center">
+  <div class="col-lg-4">
+    <h4><%= t('average_movie_score_param', :score => @movie.average_score) %></h4>
+  </div>
+  <div class="col-lg-4">
+    <h4><%= t('movie_watch_count', :count => @movie.count_of_watched) %></h4>
+  </div>
+  <% if signed_in? -%>
+      <div class="col-lg-4">
+        <h4><%= t('user_score') %>
+          <a id="show_form" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= t('.change_rating_tooltip') %>"><%= current_user.rating_for_film(@movie) %></a>
+        </h4>
+        <div class="form">
+          <%= form_for @movie_rating, :url => movie_movie_rating_path(@movie),:action => :update, :html => {:id => 'rating_form', :class => 'form-horizontal'} do |form| %>
+              <fieldset>
+                <div class="col-lg-6 col-lg-offset-3">
+                  <div class="form-group">
+                    <%= form.text_field :rating, :class => 'form-control text-center', :type => 'number', :max => '10.00', :min => '0.0', :step => '0.01' %>
+                    </p>
+                    <div class="col-lg-2 col-lg-offset-1">
+                      <%= form.submit t('.save_rating'), :class => 'btn btn-success' %>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<% if signed_in? -%>
+    <% if @movie.kinopoisk_id == nil && !@movie.have_update_request? -%>
+        <div class="row text-center">
+          <div class="center-block">
+            <%= form_for @movie_upd_req, :html => {:class => "form-horizontal"} do |f| %>
+                <fieldset>
+                  <legend>Актуальность информации</legend>
+                  <p><%= t('.update_request_description') %></p>
+                  <div class="form-group">
+                    <%= f.label t('kinopoisk_movie_url'), :class => 'col-lg-2 col-lg-offset-1 control-label' %>
+                    <div class="col-lg-6 col-lg-offset-0">
+                      <%= f.text_field :kinopoisk_link, :class => 'form-control', :type => 'url' %>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-6 col-lg-offset-3">
+                      <%= f.submit t('.create_request'), :class => 'btn btn-success' %>
+                    </div>
+                  </div>
+                </fieldset>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+
+
+<script type="text/javascript">
+  $('a').tooltip();
+  $('#rating_form').hide();
+  $('#image_carousel_row').hide();
+  $('#show_form').on('click', function (evt) {
+    $('#rating_form').toggle();
+  });
+  $('#toggle_carousel').on('click', function (evt) {
+    $('#image_carousel_row').toggle();
+  });
+</script>

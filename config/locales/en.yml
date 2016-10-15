@@ -1,0 +1,106 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  layouts:
+    application:
+      app_name: "Desired Films"
+    navigation_links:
+      home: "Home"
+      movies: "Movies"
+      users: "Users"
+      search_movies: "Search movie"
+      add_new_movie: "Add new movie"
+    navigation:
+      profile_info: "User info"
+      edit_profile_info: "Edit profile"
+      movie_request_updates: "Movie update requests"
+  sessions:
+    form:
+      password: "Password"
+      email: "Email"
+  movie_description_title: "Description"
+  movie_watch_count: "This film watched - %{count} times"
+  average_movie_score_param: "Average user score - %{score}"
+  show_images: "Show images"
+  user_score: "Your score -"
+  add_to_watch_list: "Add to watch list"
+  in_watch_list: "In watch list"
+  already_watched: "Already watched"
+  movies_list: "Movies list"
+  search_movie_at_kinopoisk: "Search movie at kinopoisk"
+  movies_dropdown: "Movies"
+  movies_title: "Movies"
+  movies_list_title: "Movies list"
+  add_movie_btn: "Add movie"
+  kinopoisk_movie_url: "Url"
+  add_from_kinopoisk_title: "Add movie from kinopoisk"
+  movie_name: "Movie name"
+  movie_year: "Year"
+  movie_country: "Country"
+  average_movie_score_title: "Average user score"
+  movie_state: "State"
+  submit_button: "Submit"
+  save_changes_btn: "Save changes"
+  edit_user_info_title: "Edit user info"
+  users_title: "Users"
+  user_edit_btn: "Edit"
+  editable_title: "Editable"
+  user_info_title: "User info"
+  movies_in_watch_list_param: "Movies in watch list (%{count})"
+  movie_average_score: "Average movie score"
+  movie_watched: "Watched"
+  watched_movies_title_param: "Watched movies (%{count})"
+  movie_user_score: "Score"
+  latest_films_title: "Latest films"
+  welcome_description: "Here you can manage films that you'd like to watch or already watched"
+  welcome_to_title: "Welcome to Desired films"
+  movies:
+    index:
+      no_movies_found: "No movies found :("
+      search_movie: "Search movie"
+      search_btn: "Search"
+      movie_part_name: "Part or full movie name"
+    show:
+      change_rating_tooltip: "To change rating click here"
+      save_rating: "Save rating"
+      update_request_description: "If this movie contains wrong information, you can send link to kinopoisk movie, and our admin will update movie info asap."
+      create_request: "Create request"
+    new:
+      add_new_movie_title: "Adding new movie"
+      movie_params: "Parameters"
+      add_from_kinopoisk_legen: "or simply add by passing url from kinopoisk"
+  error_adding_from_kinopoisk: "Error while adding movie from kinopoisk"
+  movie_successfully_added: "Movie successfully added"
+  users:
+    show:
+      show_watched_movies_list: "Show watched movies list"
+  movie_update_requests:
+    index:
+      requests_index_title: "Requests"
+      update_movie_info: "Update movie info"
+      delete_movie: "Delete movie"
+      are_u_sure_delete: "Are you sure, that you wanna delete request?"
+  user_email: "User's email"
+  request_date: "Last request date"
+  successfull_request_creation: "Request successfully created!"
+  error_while_creating_request: "Error while creating request"
+  are_u_sure_to_update: "Are you sure?"

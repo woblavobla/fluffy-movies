@@ -1,0 +1,73 @@
+<% content_for :title do %><%= t('user_info_title') %>
+<% end %>
+
+<h2 class="text-center"><%= t('user_info_title') %></h2>
+
+<div id="user_info" class="row">
+
+</div>
+
+<div class="row text-center">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#watch_list" data-toggle="tab"><%= t('movies_in_watch_list_param', :count => @movies_to_watch.count) %></a>
+    </li>
+    <li>
+      <a href="#watched_list" data-toggle="tab"><%= t('watched_movies_title_param', :count => @watched_movies.count) %></a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="watch_list">
+      <div id="movies_to_watch_list" class="row text-center">
+        <table id="movies_to_watch_table" class="table">
+          <tr class="active">
+            <td><%= t("movie_name") %></td>
+            <td><%= t("movie_year") %></td>
+            <td><%= t('movie_average_score') %></td>
+            <% if current_user == @movies_to_watch.first&.user -%>
+                <td><%= t('movie_watched') %></td>
+            <% end %>
+          </tr>
+          <% for movie_to_watch in @movies_to_watch -%>
+              <tr>
+                <td><%= link_to (movie_to_watch.movie.name_ru.blank? ? movie_to_watch.movie.name : movie_to_watch.movie.name_ru), movie_to_watch.movie, 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => movie_to_watch.movie.short_description %></td>
+                <td><%= movie_to_watch.movie.year %></td>
+                <td><%= movie_to_watch.movie.average_score %></td>
+                <% if current_user == @movies_to_watch.first&.user -%>
+                    <td>
+                      <%= link_to user_movie_to_watch_path(movie_to_watch), :method => :delete do %>
+                          <i class="glyphicon glyphicon-minus-sign"></i>
+                      <% end %>
+                    </td>
+                <% end %>
+              </tr>
+          <% end %>
+        </table>
+        <%= will_paginate @movies_to_watch, :param_name => 'to_watch_page', renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="watched_list">
+      <div id="watched_movies_row" class="row text-center">
+        <table id="watched_movies_table" class="table">
+          <tr class="active">
+            <td><%= t("movie_name") %></td>
+            <td><%= t("movie_year") %></td>
+            <td><%= t('movie_user_score') %></td>
+          </tr>
+          <% for movie in @watched_movies -%>
+              <tr>
+                <td><%= link_to (movie.movie.name_ru.blank? ? movie.movie.name : movie.movie.name_ru), movie_path(movie.movie), 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => movie.movie.short_description %></td>
+                <td><%= movie.movie.year %></td>
+                <td><%= @user.rating_for_watched_film(movie) %></td>
+              </tr>
+          <% end %>
+        </table>
+        <%= will_paginate @watched_movies, :param_name => 'watched_page', renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('a').tooltip();
+</script>

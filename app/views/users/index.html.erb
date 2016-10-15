@@ -1,0 +1,20 @@
+<% content_for :title do %><%= t('users_title') %>
+<% end %>
+<div class="row text-center">
+  <h2><%= t('users_title') %></h2>
+</div>
+
+
+<div class="row text-center">
+  <table class="table">
+    <tr class="active">
+      <td><%= t("sessions.form.email") %></td>
+    </tr>
+    <% for user in @users -%>
+        <tr>
+          <td><%= link_to user.email, user_path(user) %></td>
+        </tr>
+    <% end -%>
+  </table>
+  <%= will_paginate @users %>
+</div>

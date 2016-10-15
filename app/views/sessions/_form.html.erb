@@ -1,0 +1,27 @@
+<%= form_for :session, :html => {:role => 'form', :class => 'form-horizontal'}, url: session_path do |form| %>
+    <fieldset>
+      <div class="form-group">
+        <%= form.label t('.email'), class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= form.text_field :email, type: 'email', class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= form.label t('.password'), class: 'col-lg-2 control-label' %>
+        <div class="col-lg-10">
+          <%= form.password_field :password, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= form.submit t("users.new.sign_in"), :class => 'btn btn-success' %>
+          <% if Clearance.configuration.allow_sign_up? %>
+              <%= link_to t(".sign_up"), sign_up_path, :class => 'btn btn-primary' %>
+          <% end %>
+          <%= link_to t(".forgot_password"), new_password_path, :class => 'btn btn-info' %>
+        </div>
+      </div>
+    </fieldset>
+<% end %>

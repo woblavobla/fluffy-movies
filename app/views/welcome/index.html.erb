@@ -1,0 +1,19 @@
+<h2 class="text-center"><%= t('welcome_to_title') %></h2>
+<p class="text-center lead">
+  <%= t('welcome_description') %>
+</p>
+
+<div class="row text-center">
+  <h2><%= t('latest_films_title') %></h2>
+  <% for movie in @latest_movies do -%>
+      <div class="col-lg-4">
+        <h3><%= link_to "#{(movie.name_ru.blank? ? movie.name : movie.name_ru)} (#{movie.year})", movie %></h3>
+        <% if movie.pictures.count > 0 -%>
+            <p>
+              <img src="<%= movie.pictures.first.image.url(:thumb) %>" class="img-thumbnail img-responsive" width="200">
+            </p>
+        <% end %>
+        <p><%= movie.short_description %></p>
+      </div>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+<div id="clearance" class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><%= t(".title") %></h2>
+    </div>
+    <div class="panel-body">
+      <%= form_for @user, :html => {:role => 'form', :class => 'form-horizontal'} do |form| %>
+          <fieldset>
+            <%= render partial: '/users/form', object: form %>
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <%= form.submit t("sessions.form.sign_up"), :class => 'btn btn-success' %>
+                <%= link_to t(".sign_in"), sign_in_path, :class => 'btn btn-primary' %>
+              </div>
+            </div>
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>

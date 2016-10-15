@@ -1,0 +1,127 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+ru:
+  will_paginate:
+    previous_label: "&#8592; Назад"
+    next_label: "Далее &#8594;"
+    page_gap: "&hellip;"
+
+    page_entries_info:
+      single_page:
+        zero:  "Модель %{model} не найдена"
+        one:   "Displaying 1 %{model}"
+        other: "Displaying all %{count} %{model}"
+      single_page_html:
+        zero:  "Модель %{model} не найдена"
+        one:   "Displaying <b>1</b> %{model}"
+        other: "Displaying <b>all&nbsp;%{count}</b> %{model}"
+
+      multi_page: "Displaying %{model} %{from} - %{to} of %{count} in total"
+      multi_page_html: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b> in total"
+  layouts:
+    application:
+      app_name: "Desired Films"
+    navigation_links:
+      home: "Домой"
+      movies: "Фильмы"
+      users: "Пользователи"
+      search_movies: "Поиск фильма"
+      add_new_movie: "Добавить фильм"
+    navigation:
+      profile_info: "Профиль"
+      edit_profile_info: "Редактировать профиль"
+      movie_request_updates: "Запросы на обновление фильмов"
+  sessions:
+    form:
+      password: "Пароль"
+      email: "Email"
+  movie_description_title: "Описание"
+  movie_watch_count: "Этот фильм был просмотрен - %{count} раз"
+  average_movie_score_param: "Средняя оценка пользователей - %{score}"
+  show_images: "Показать кадры"
+  user_score: "Ваша оценка -"
+  add_to_watch_list: "Добавить в список просмотра"
+  in_watch_list: "В списке просмотра"
+  already_watched: "Уже просмотрен"
+  movies_list: "Список фильмов"
+  search_movie_at_kinopoisk: "Искать фильм на кинопоиске"
+  movies_dropdown: "Фильмы"
+  movies_title: "Фильмы"
+  movies_list_title: "Список фильмов"
+  add_movie_btn: "Добавить фильм"
+  kinopoisk_movie_url: "Ссылка"
+  add_from_kinopoisk_title: "Добавить фильм с кинопоиска"
+  movie_name: "Название фильма"
+  movie_year: "Год"
+  movie_country: "Страна"
+  average_movie_score_title: "Средняя оценка"
+  movie_state: "Состояние"
+  submit_button: "Подтвердить"
+  save_changes_btn: "Сохранить изменения"
+  edit_user_info_title: "Редактирование пользователя"
+  users_title: "Пользователи"
+  user_edit_btn: "Редактировать"
+  editable_title: "Редактируемый"
+  user_info_title: "Информация о пользователе"
+  movies_in_watch_list_param: "Фильмы в списке просмотра (%{count})"
+  movie_average_score: "Средняя оценка фильма"
+  movie_watched: "Просмотрен"
+  watched_movies_title_param: "Просмотренные фильмы (%{count})"
+  movie_user_score: "Оценка"
+  latest_films_title: "Последние добавленные фильмы"
+  welcome_description: "Здесь вы можете управлять списком просмотра фильмов или добавить новые."
+  welcome_to_title: "Добро пожаловать."
+  movies:
+    index:
+      no_movies_found: "К сожалению, фильмы не найдены :("
+      search_movie: "Поиск фильма"
+      search_btn: "Искать"
+      movie_part_name: "Полное или частичное название фильма"
+    show:
+      change_rating_tooltip: "Чтобы изменить рейтинг фильма, нажмите на цифры"
+      save_rating: "Сохранить"
+      update_request_description: "Если по вашему мнение данный фильм содержит неактуальные данные, то вы можете оставить ссылку на кинопоиск (с данным фильмом) и наш администратор после проверки актуализирует эту информацию."
+      create_request: "Создать заявку"
+    new:
+      add_new_movie_title: "Добавление нового фильма"
+      movie_params: "Параметры"
+      add_from_kinopoisk_legen: "Добавить фильм по ссылке с кинопоиска"
+  error_adding_from_kinopoisk: "Произошла ошибка во время добавления фильма с кинопоиска :("
+  movie_successfully_added: "Фильм успешно добавлен :)"
+  errors:
+    messages:
+      required: "должно существовать"
+      taken: "уже занято"
+  users:
+      show:
+        show_watched_movies_list: "Показать список просмотренных фильмов"
+  movie_update_requests:
+      index:
+        requests_index_title: "Запросы на обновление"
+        update_movie_info: "Обновить информацию о фильме"
+        delete_movie: "Удалить заявку"
+        are_u_sure_delete: "Вы уверены, что хотите удалить заявку?"
+  user_email: "Почта пользователя"
+  request_date: "Дата последнего запроса"
+  successfull_request_creation: "Заявка успешно создана!"
+  error_while_creating_request: "Произошла ошибка во время создания запроса"
+  are_u_sure_to_update: "Вы уверены, что хотите обновить информацию о фильме и удалить заявку?"

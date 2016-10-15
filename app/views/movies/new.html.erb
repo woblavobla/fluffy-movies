@@ -1,0 +1,72 @@
+<% content_for :title do %><%= t('.add_new_movie_title') %>
+<% end %>
+
+<h2 class="text-center"><%= t('.add_new_movie_title') %></h2>
+
+<div class="well bs-component">
+  <div class="row">
+    <div id="simple_form">
+      <div class="col-lg-6">
+        <%= form_for @movie, :html => {:class => 'form-horizontal'} do |f| %>
+            <fieldset>
+              <legend><%= t('.movie_params') %></legend>
+              <div class="form-group">
+                <%= f.label t('movie_name'), :class => 'col-lg-2 control-label' %>
+                <div class="col-lg-10">
+                  <%= f.text_field :name, :class => 'form-control' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= f.label t('movie_year'), :class => 'col-lg-2 control-label' %>
+                <div class="col-lg-10">
+                  <%= f.text_field :year, :class => 'form-control', :type => 'number', :min => '1800', :max => "#{Date.today.year + 10}", :step => '1' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= f.label t('movie_description_title'), :class => 'col-lg-2 control-label' %>
+                <div class="col-lg-10">
+                  <%= f.text_area :description, :class => 'form-control', :rows => '3' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                  <%= f.submit t('save_changes_btn'), :class => 'btn btn-success' %>
+                </div>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+    <div id="kinopoisk_form">
+      <div class="col-lg-6">
+        <%= form_for @kino, :url => add_from_kinopoisk_movie_path(@kino), :html => {:class => "form-horizontal"} do |f| %>
+            <fieldset>
+              <legend><%= t('.add_from_kinopoisk_legen') %></legend>
+
+              <div class="form-group">
+                <%= f.label t('kinopoisk_movie_url'), :class => 'col-lg-2 control-label' %>
+                <div class="col-lg-10">
+                  <%= f.text_field :kinopoisk_url, :value => 'https://www.kinopoisk.ru/film/326/', :type => 'url', :class => 'form-control' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                  <%= button_tag(type: 'submit', :class => 'btn btn-success') do %>
+                      <%= t('add_movie_btn') %> <span class="glyphicon glyphicon-plus"></span>
+                  <% end %>
+                </div>
+              </div>
+            </fieldset>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
