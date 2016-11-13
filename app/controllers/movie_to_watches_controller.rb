@@ -1,6 +1,8 @@
 class MovieToWatchesController < ApplicationController
   def update
-    movie_to_watch = MovieToWatch.find(params.require(:id))
+    movie = Movie.find(params.require(:id))
+    movie_to_watch = movie.movie_to_watches.where(:user_id => params[:user_id]).first
+
     if movie_to_watch.update_attribute(:date_of_added, DateTime.now)
       redirect_to movie_to_watch.movie
     else

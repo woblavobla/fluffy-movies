@@ -104,3 +104,4 @@ en:
   successfull_request_creation: "Request successfully created!"
   error_while_creating_request: "Error while creating request"
   are_u_sure_to_update: "Are you sure?"
+  edit_movie_title: "Edit movie"

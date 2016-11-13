@@ -3,8 +3,12 @@ class Movie < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :movie_ratings, :dependent => :destroy
   has_many :watched_movies, :dependent => :destroy
+  has_many :movie_to_watches, :dependent => :destroy
   has_many :pictures, :dependent => :destroy
   has_many :movie_update_requests, :dependent => :destroy
+  has_many :torrents, :dependent => :destroy
+
+  accepts_nested_attributes_for :torrents
 
   before_save :set_add_date
 

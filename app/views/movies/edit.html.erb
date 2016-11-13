@@ -1,0 +1,56 @@
+<% content_for :title do %><%= t('edit_movie_title') %>
+<% end %>
+
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><%= t('edit_movie_title') %> <%= @movie.rus_name %></h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-6 col-md-offset-3">
+        <%= form_for @movie, :html => {:class => 'form-horizontal'} do |f| %>
+            <div class="field form-group">
+              <%= f.label :name, :class => 'control-label' %>
+              <%= f.text_field :name, :class => 'form-control' %>
+            </div>
+            <div class="field form-group">
+              <%= f.label :name_ru, :class => 'control-label' %>
+              <%= f.text_field :name_ru, :class => 'form-control' %>
+            </div>
+            <div class="field form-group">
+              <%= f.label :year, :class => 'control-label' %>
+              <%= f.text_field :year, :class => 'form-control' %>
+            </div>
+            <div class="field form-group">
+              <%= f.label :country, :class => 'control-label' %>
+              <%= f.text_field :country, :class => 'form-control' %>
+            </div>
+            <div class="field form-group">
+              <%= f.label :description, :class => 'control-label' %>
+              <%= f.text_area :description, :class => 'form-control' %>
+            </div>
+
+            <div id="pictures">
+
+            </div>
+
+            <div id="torrents">
+              <%= f.fields_for :torrents do |tor_form| %>
+                  <div class="field form-group">
+                    <%= tor_form.label :torrent_file_file_name, :class => 'control-label' %>
+                    <%= tor_form.text_field :torrent_file_file_name, :class => 'form-control' %>
+                    <%= tor_form.label :quality, :class => 'control-label' %>
+                    <%= tor_form.text_field :quality, :class => 'form-control' %>
+                    <%= tor_form.file_field :torrent_file, :class => 'btn' %>
+                  </div>
+              <% end %>
+            </div>
+
+            <div class="field form-group">
+              <%= f.submit t('save_changes_btn'), :class => 'btn btn-success' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

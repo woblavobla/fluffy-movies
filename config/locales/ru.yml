@@ -125,3 +125,4 @@ ru:
   successfull_request_creation: "Заявка успешно создана!"
   error_while_creating_request: "Произошла ошибка во время создания запроса"
   are_u_sure_to_update: "Вы уверены, что хотите обновить информацию о фильме и удалить заявку?"
+  edit_movie_title: "Редактировать"

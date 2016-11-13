@@ -1,6 +1,7 @@
 class MovieRatingsController < ApplicationController
   def update
-    rating = MovieRating.find(params[:id])
+    movie = Movie.find(params[:movie_id])
+    rating = movie.movie_ratings.where(:user => current_user).first
     if rating.update_attributes(params[:movie_rating].permit(:rating))
       movie_to_watch = rating.user.movie_to_watches.where(:movie => rating.movie).first
       already_watched = rating.user.watched_movies.where(:movie => rating.movie).first

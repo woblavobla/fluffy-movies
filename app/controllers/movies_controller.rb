@@ -35,6 +35,25 @@ class MoviesController < ApplicationController
     @kino = Movie.first
   end
 
+  def edit
+    @movie = Movie.find(params[:id])
+    @movie.torrents.build if @movie.torrents.size == 0
+    @movie
+  end
+
+  def update
+    @movie = Movie.find(params[:id])
+    if @movie.update_attributes(movie_params)
+      redirect_to @movie, :notice => 'Фильм успешно обновлен'
+    else
+      redirect_to edit_movie_path(@movie), :alert => @movie.errors
+    end
+  end
+
+  def movie_params
+    params[:movie].permit([:name, :name_ru, :year, :country, :description], :torrents_attributes => [:torrent_file, :quality, :id])
+  end
+
   def create
     @movie = Movie.new(params[:movie].permit(:name, :year, :description))
     if @movie.save

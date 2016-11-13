@@ -15,18 +15,18 @@
         <%= form_tag movies_path, :method => 'get', :html => {:class => "form-horizontal"} do |f| %>
             <fieldset>
               <legend class="text-center"><%= t('.search_movie') %></legend>
-              <div class="form-group">
+              <div class="field form-group">
                 <label class="col-lg-6 col-lg-offset-3 control-label"><%= t('.movie_part_name') %></label>
                 <div class="col-lg-6 col-lg-offset-3">
-                  <%= text_field_tag :search, params[:search], :class => 'form-control text-center' %>
+                  <%= text_field_tag :search, params[:search], :class => 'form-control' %>
                 </div>
               </div>
 
-              <div class="form-group">
-                <div class="col-lg-6 col-lg-offset-3">
+              <div class="field form-group">
+                <div class="col-lg-6 col-lg-offset-3" style="margin-top: 5px;">
                   <%= button_tag(type: 'submit', :class => 'btn btn-primary') do %>
-                      <%= t('.search_btn') %> <span class="glyphicon glyphicon-search"></span>
-                  <% end %>
+                      <span class="glyphicon glyphicon-search"></span> <%= t('.search_btn') %>
+                <% end %>
                 </div>
               </div>
             </fieldset>

@@ -1,7 +1,14 @@
 <% content_for :title do %><%= "#{@movie.name_ru.blank? ? @movie.name : @movie.name_ru} (#{@movie.year})" %>
 <% end %>
 
-<h2 class="text-center"><%= "#{@movie.name_ru.blank? ? @movie.name : @movie.name_ru} (#{@movie.year})" %></h2>
+<h2 class="text-center"><%= "#{@movie.name_ru.blank? ? @movie.name : @movie.name_ru} (#{@movie.year})" %>
+</h2>
+<h5 class="text-center">
+  <% if signed_in? && current_user.admin %>
+      <%= link_to t('edit_movie_title'), edit_movie_path(@movie), :class => 'label label-default' %>
+  <% end %>
+</h5>
+
 
 <div class="row text-center">
   <% if signed_in? -%>
@@ -13,7 +20,7 @@
                 <a><span class="glyphicon glyphicon-adjust"></span> <%= t('in_watch_list') %></a>
             <% else %>
                 <%= form_for @movie_to_watch, :url => user_movie_to_watch_path(current_user), :action => :update, :html => {:class => 'form'} do |form| %>
-                    <%= form.submit t('add_to_watch_list'), :class => 'btn btn-primary' %>
+                    <%= form.submit t('add_to_watch_list'), :class => 'btn btn-default' %>
                 <% end %>
             <% end %>
           </h4>
@@ -21,9 +28,24 @@
   <% end %>
 </div>
 
+<% if @movie.pictures.count == 0 %>
+    <div class="row">
+      <div class="text-center">
+        <h3><%= t('movie_description_title') %></h3>
+        <%= @movie.description %>
+      </div>
+    </div>
+<% end %>
+
 <% if @movie.pictures.count > 0 -%>
     <div class="row">
-      <img src="<%= @movie.pictures.first.image.url(:thumb) %>" class="img-thumbnail img-responsive center-block" alt="image">
+      <div class="col-lg-4">
+        <img src="<%= @movie.pictures.first.image.url(:thumb) %>" class="img-thumbnail img-responsive center-block" alt="image">
+      </div>
+      <div class="col-lg-8">
+        <h3><%= t('movie_description_title') %></h3>
+        <%= @movie.description %>
+      </div>
     </div>
 
     <div class="row">
@@ -67,8 +89,19 @@
 <% end %>
 
 <div class="row text-center">
-  <h3><%= t('movie_description_title') %></h3>
-  <%= @movie.description %>
+  <h5>Скачать|Просмотреть фильм</h5>
+  <% @movie.torrents.each_with_index do |torrent, index| %>
+      <div class="row">
+        <a id="watchTorrent" class="btn btn-default"><%= torrent.quality %></a>
+      </div>
+  <% end %>
+  <div id="torrentPlayer" class="row">
+    <% unless @movie.torrents.blank? %>
+        <div id="torrentsTime" class="torrentsTime" data-setup='{"source": "<%= asset_url(@movie.torrents.first.torrent_file.url) %>"}'></div>
+        <a class="label label-default" href="<%= asset_url(@movie.torrents.first.torrent_file.url) %>">Скачать торрент
+          - <%= @movie.torrents.first.quality %></a>
+    <% end %>
+  </div>
 </div>
 
 <div class="row text-center">
@@ -84,7 +117,7 @@
           <a id="show_form" data-toggle="tooltip" data-placement="right" title="" data-original-title="<%= t('.change_rating_tooltip') %>"><%= current_user.rating_for_film(@movie) %></a>
         </h4>
         <div class="form">
-          <%= form_for @movie_rating, :url => movie_movie_rating_path(@movie),:action => :update, :html => {:id => 'rating_form', :class => 'form-horizontal'} do |form| %>
+          <%= form_for @movie_rating, :url => movie_movie_rating_path(@movie), :action => :update, :html => {:id => 'rating_form', :class => 'form-horizontal'} do |form| %>
               <fieldset>
                 <div class="col-lg-6 col-lg-offset-3">
                   <div class="form-group">
@@ -129,15 +162,23 @@
     <% end %>
 <% end %>
 
+<script src="//cdn.torrents-time.com/torrentstime.min.js"></script>
+
+<%= stylesheet_link_tag 'movie-show' %>
 
 <script type="text/javascript">
   $('a').tooltip();
   $('#rating_form').hide();
   $('#image_carousel_row').hide();
+  $('#torrentPlayer').hide();
   $('#show_form').on('click', function (evt) {
     $('#rating_form').toggle();
   });
   $('#toggle_carousel').on('click', function (evt) {
     $('#image_carousel_row').toggle();
+  });
+  $('#watchTorrent').on('click', function (evt) {
+    $('#torrentPlayer').show();
+    torrentsTime.init({publisher_id: 773});
   });
 </script>
